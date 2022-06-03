@@ -8,16 +8,11 @@ const players = {
     }
 }
 /*---------------------------- Variables (state) ----------------------------*/
-let board = null
-let turn = null
-let winner = null
-console.log(winner)
-console.log(winner)
+let board, turn, winner
 /*------------------------ Cached Element References ------------------------*/
 const squareEls = document.querySelector('.board')
 const messageEl = document.getElementById('messages')
-console.log(board)
-console.log(messageEl)
+console.log(messageEl.textContent)
 
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -29,6 +24,11 @@ function init() {
     board = [null, null, null, null, null, null, null, null, null]
     turn = 1
     winner = null
+    render() 
 }
 
-init()
+
+function render() {
+
+}
+
