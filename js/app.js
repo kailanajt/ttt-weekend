@@ -1,8 +1,7 @@
 /*-------------------------------- Constants --------------------------------*/
 const winningCombos = [
-    [0,1,2], [3,4,5],
-    [6,7,8], [1,4,7],
-    [0,3,6], [0,4,8],
+    [0,1,2], [3,4,5], [6,7,8], 
+    [1,4,7], [0,3,6], [0,4,8],
     [2,5,8], [2,4,6]
 
 ]
@@ -10,23 +9,31 @@ const winningCombos = [
 let board, turn, winner
 /*------------------------ Cached Element References ------------------------*/
 const squareEls = document.querySelectorAll('.squares')
-const boardEls = document.querySelectorAll('.board')
+// const boardEls = document.querySelectorAll('.board')
 const messageEl = document.getElementById('messages')
-console.log(messageEl.textContent)
+const resetBtnEl = document.querySelector('#reset-button')
+
 
 
 
 /*----------------------------- Event Listeners -----------------------------*/
 //ternery style ex for later(?): evt.target.style.color === 'black' ? 'lime' : 'black'
-sq0.addEventListener('click', handleClick)
-sq1.addEventListener('click', handleClick)
-sq2.addEventListener('click', handleClick)
-sq3.addEventListener('click', handleClick)
-sq4.addEventListener('click', handleClick)
-sq5.addEventListener('click', handleClick)
-sq6.addEventListener('click', handleClick)
-sq7.addEventListener('click', handleClick)
-sq8.addEventListener('click', handleClick)
+// sq0.addEventListener('click', handleClick)
+// sq1.addEventListener('click', handleClick)
+// sq2.addEventListener('click', handleClick)
+// sq3.addEventListener('click', handleClick)
+// sq4.addEventListener('click', handleClick)
+// sq5.addEventListener('click', handleClick)
+// sq6.addEventListener('click', handleClick)
+// sq7.addEventListener('click', handleClick)
+// sq8.addEventListener('click', handleClick)
+squareEls.forEach(function(squares) {
+    squares.addEventListener('click', handleClick) 
+})
+
+resetBtnEl.addEventListener('click', function(){
+    init()
+})
 /*-------------------------------- Functions --------------------------------*/
 init()
 
@@ -47,14 +54,16 @@ function render() {
         if (square === -1) {
     squareEls[Idx].textContent = 'O'
     }
-    // console.log(squareEls[Idx])
+    if(!square) {
+        squareEls[Idx].textContent = ''
+    }
 })
         if (winner === null) {
     messageEl.textContent = `Player ${turn === 1 ? "X": "O"}'s turn!`
     } else if (winner === 'T') {
         messageEl.textContent = `It's a tie!`
     } else {
-        messageEl.textContent = `Congrats! Player Player ${turn === 1 ? "O" : "X"} has won!`
+        messageEl.textContent = `Congrats! Player ${turn === 1 ? "O" : "X"} has won!`
     }
 }
 
@@ -66,15 +75,18 @@ function handleClick(evt) {
 
     board[sqIdx] = turn
     turn *= -1
-//    getWinner()
-   render()
+    getWinner()
+    render()
 }
 
 function getWinner() {
-    winningCombos.forEach(function(winningCombo) {
-        
-        // console.log(winningCombo)
-        // console.log(board[winningCombo[0]])
-        // console.log(board[winningCombo[1]])
+    winningCombos.forEach(function(winningCombos) {
+        let sum = board[winningCombos[0]] + board[winningCombos[1]] + board[winningCombos[2]]
+        if(Math.abs(sum) === 3) {
+            winner = turn
+        } 
+        else if (board.includes(null) === false) {
+            winner = "T"
+        }
     })
 }
