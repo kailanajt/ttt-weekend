@@ -27,6 +27,7 @@ const resetBtnEl = document.querySelector('#reset-button')
 // sq6.addEventListener('click', handleClick)
 // sq7.addEventListener('click', handleClick)
 // sq8.addEventListener('click', handleClick)
+
 squareEls.forEach(function(squares) {
     squares.addEventListener('click', handleClick) 
 })
@@ -90,3 +91,4 @@ function getWinner() {
         }
     })
 }
+
